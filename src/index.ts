@@ -10,9 +10,7 @@ const server = http.createServer(app);
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({ server });
 
-wss.on('connection', (ws: WebSocket, req: Request) => {
-    console.log(`req`, req);
-    
+wss.on('connection', (ws: WebSocket, req: Request) => {    
     //connection is up, let's add a simple simple event
     ws.on('message', (message: string) => {
 
@@ -38,6 +36,15 @@ wss.on('connection', (ws: WebSocket, req: Request) => {
             ws.send(`Hello, you sent -> ${message}`);
         }
     });
+
+    setInterval(() => {        
+        wss.clients.forEach((ws: WebSocket) => {           
+            if (ws.readyState !== 1) return ws.terminate();
+            
+            // ws.isAlive = false;
+            // ws.ping(null, false, true);
+        });
+    }, 10000);
 
     //send immediatly a feedback to the incoming connection    
     ws.send('Hi there, I am a WebSocket server');

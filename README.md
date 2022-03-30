@@ -1,8 +1,7 @@
 # wsnotf
 Websocket notification
 
-## Install
-`npm install`
+## Run
+`docker compose up -d`
 
-## How to run
-`./node_modules/.bin/tsc && node ./dist/server/server.js`
+Then server will be available at ws://localhost:8999 
